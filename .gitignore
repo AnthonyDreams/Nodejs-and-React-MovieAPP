@@ -40,7 +40,6 @@ build/Release
 
 # Dependency directories
 waomovies_api/node_modules/
-**/*.jpg
 waomovies_client/node_modules/
 
 jspm_packages/
