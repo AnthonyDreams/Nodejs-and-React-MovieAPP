@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import { useExpressServer } from "routing-controllers";
 import {ActorController} from "./app/Controllers/actorController"
 import {MovieController} from "./app/Controllers/movieController"
+import {CharacterController} from "./app/Controllers/characterController"
+
 import path from 'path';
 
 const express = require('express');
@@ -47,7 +49,7 @@ useExpressServer(app, {
     // and configure it the way you need (controllers, validation, etc.)
     defaultErrorHandler: false,
     routePrefix: "/api",
-    controllers: [ActorController, MovieController],
+    controllers: [ActorController, MovieController, CharacterController],
     middlewares: [__dirname + "/app/Middlewares/**/*.ts"], 
   });
 

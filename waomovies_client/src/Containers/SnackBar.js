@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSnackbars({message, type}) {
+export default function CustomizedSnackbars(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const {reset} = React.useContext(AlertMessageContext)
+  const {message, type, reset} = React.useContext(AlertMessageContext)
+
  
   React.useEffect(()=>{
       if(message){
@@ -40,13 +41,12 @@ export default function CustomizedSnackbars({message, type}) {
   }
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    setOpen(false);
+
+   
     reset()
     
 
-    setOpen(false);
   };
 
   return (

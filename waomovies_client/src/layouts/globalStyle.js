@@ -5,7 +5,8 @@ export const headerStyles = (theme) => ({
    
 
     appBar: {
-        zIndex: theme.zIndex.drawer + 200
+        zIndex: theme.zIndex.drawer + 200,
+        backgroundColor: "#f1f1"
     },
     menuButton: {
       marginRight: theme.spacing(2),

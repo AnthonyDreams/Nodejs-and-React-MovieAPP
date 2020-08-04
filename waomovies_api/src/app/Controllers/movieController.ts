@@ -38,7 +38,7 @@ export class MovieController {
 
     @Get("/movies/:id")
     getOne(@Param("id") id: string) {
-       return this.movieRepository.findOne(id);
+       return this.movieRepository.findOne(id, { relations: ["characters", "characters.actor"] });
     }
 
 

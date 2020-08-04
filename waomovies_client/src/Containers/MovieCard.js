@@ -7,22 +7,23 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import {Link} from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
   media: {
-    height: 140,
+    height: 0,
+    paddingTop: "133%"
   },
 });
 
-export default function MovieCard({id, image, title, release_date, deleteAction}) {
+export default function MovieCard({id, image, title, release_date, deleteAction, onClick}) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => onClick(id)}>
         <CardMedia
           className={classes.media}
           image={process.env.REACT_APP_MOVIEAPI_STATIC+"movies/"+image}
@@ -38,7 +39,7 @@ export default function MovieCard({id, image, title, release_date, deleteAction}
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" component={Link} to={'movies/edit/'+id}>
           Edit
         </Button>
         <Button onClick={()=>deleteAction(id)} size="small" color="primary">

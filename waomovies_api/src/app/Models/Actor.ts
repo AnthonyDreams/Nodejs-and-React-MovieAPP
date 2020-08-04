@@ -25,7 +25,7 @@ export class Actor {
     @Column({type: "date"})
     birthDate : Date
 
-    @OneToMany(type => Character, photo => photo.actor)
+    @OneToMany(type => Character, character => character.actor)
     interpretations: Character[];
     
     @Column({type: "enum", enum: BasicSex })

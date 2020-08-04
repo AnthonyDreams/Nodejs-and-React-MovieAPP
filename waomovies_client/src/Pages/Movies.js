@@ -10,12 +10,19 @@ import {FilterContext} from "../Context/Filter"
 import {RequestContext} from "../Context/Request"
 import AddButton from "../Containers/Buttons/AddButton"
 import BackDrop from "../Containers/Backdrop"
+import DetailMovie from "../Components/DetailMovie" 
+
 import "../App.css";
-export default function Actor() {
+export default function Movie() {
   const classes = GridStyle();
   const [data, setData] = React.useState([]);
   const {searchText, validFilter, filterObject} = React.useContext(FilterContext);
   const {loading, makeQuery} = React.useContext(RequestContext)
+  const [movie, setMovie] = React.useState(null);
+
+  function showMovieDetail(id){
+    setMovie(id)
+  }
 
   function deleteMovie(id){
     MovieApi.movies.remove(id).then(() => {
@@ -52,10 +59,11 @@ export default function Actor() {
       <Container className={classes.container}>
         <Grid container spacing={1}>
           <Grid container item xs={12} spacing={2}>
+          <DetailMovie onClose={() => setMovie(null)} movie={movie}/>
             {data &&
               data.map((movie, index) => (
                 <Grid item xs={3} key={index}>
-                  <MovieCard {...movie} deleteAction={deleteMovie}></MovieCard>
+                  <MovieCard onClick={showMovieDetail} {...movie} deleteAction={deleteMovie}></MovieCard>
                 </Grid>
               ))}
           </Grid>

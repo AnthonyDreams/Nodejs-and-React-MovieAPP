@@ -13,16 +13,23 @@ import "../App.css";
 import { Divider } from "@material-ui/core";
 import AddButton from "../Containers/Buttons/AddButton"
 import BackDrop from "../Containers/Backdrop"
+import DetailActor from "../Components/DetailActor" 
+
 
 export default function Actor() {
   const classes = GridStyle();
   const [data, setData] = React.useState([]);
   const {searchText, validFilter, filterObject} = React.useContext(FilterContext);
   const {loading, makeQuery} = React.useContext(RequestContext)
+  const [actor, setActor] = React.useState(null);
   function deleteActor(id){
       MovieApi.actors.remove(id).then(() => {
           setData(prev => prev.filter(actor=> actor.id !== id) )
       })
+  }
+
+  function showActorDetail(id){
+    setActor(id)
   }
 
   useEffect(() => {
@@ -52,10 +59,11 @@ export default function Actor() {
       <Container className={classes.container}>
         <Grid container spacing={1}>
           <Grid container item xs={12} spacing={2}>
+            <DetailActor onClose={() => setActor(null)} actor={actor} />
             {data &&
               data.map((actor, index) => (
                 <Grid item xs={3} key={index}>
-                  <ActorCard {...actor} deleteAction={deleteActor}></ActorCard>
+                  <ActorCard onClick={showActorDetail} {...actor} deleteAction={deleteActor}></ActorCard>
                 </Grid>
               ))}
           </Grid>

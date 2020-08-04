@@ -24,4 +24,10 @@ export class ActorRepository extends Repository<Actor> {
         .getMany()
     }
 
+    notInIds(query){
+        return this.createQueryBuilder("actor").where("actor.id NOT IN (:...ids)", {ids:query.ids.split(',')}).getMany();
+    }
+
+    
+
 }

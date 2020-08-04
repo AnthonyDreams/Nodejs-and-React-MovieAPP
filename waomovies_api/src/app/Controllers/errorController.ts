@@ -6,14 +6,7 @@ module.exports = (err, req, res, next) => {
         status: err.status || 'error',
         error: {
             ...err,
-            errors: err.name == "BadRequestError" ? err.errors.map(err => {
-                err = {
-                    property: err.property,
-                    errors: Object.values(err.constraints)
-                }
-    
-                return err
-            }) : err
+           
         },
     });
 

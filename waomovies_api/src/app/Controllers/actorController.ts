@@ -14,13 +14,22 @@ export class ActorController {
     }
 
     @Get("/actors")
-    @HttpCode(201)
+    @HttpCode(200)
     getAll(@QueryParams() query: any) {
         // checking if the object query got values
         if(Object.keys(query).length > 0){
             return this.actorRepository.findBySearch(query);
         }
         return this.actorRepository.find();
+
+    }
+
+    @Get("/exclude/actors")
+    @HttpCode(201)
+    getAllExcept(@QueryParams() query: any) {
+        
+        return this.actorRepository.notInIds(query);
+
     }
 
     @Post("/actors")
@@ -38,7 +47,7 @@ export class ActorController {
 
     @Get("/actors/:id")
     getOne(@Param("id") id: string) {
-       return this.actorRepository.findOne(id);
+       return this.actorRepository.findOne(id, { relations: ["interpretations", "interpretations.movie"] });
     }
 
 

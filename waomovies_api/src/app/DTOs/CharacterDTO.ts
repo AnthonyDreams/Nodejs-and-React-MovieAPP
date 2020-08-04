@@ -7,10 +7,10 @@ import {MovieDTO} from "./movieDTO"
 export class CharacterDTO {
     
     @IsString()
-    name: string
+    character_name: string
 
     @ValidateNested()
-    actors: ActorDTO
+    actor: ActorDTO
 
     @ValidateNested()
     movie: MovieDTO

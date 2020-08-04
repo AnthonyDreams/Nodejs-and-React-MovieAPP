@@ -43,10 +43,16 @@ export default function ActorForm({ data }) {
   const [actor, setActor] = React.useState({});
   const {makeQuery} = React.useContext(RequestContext)
   const {success} = React.useContext(AlertMessageContext)
+  const [preview, setPreview] = React.useState(null)
 
   useEffect(() => {
       if(data){
+        const image = process.env.REACT_APP_MOVIEAPI_STATIC +"actor/" +data.image
+        
+        
         setActor( data );
+        setPreview(image)
+        handleImage([image], "url")
 
       }
   }, [data]);
@@ -56,8 +62,8 @@ export default function ActorForm({ data }) {
     setActor((prev) => ({ ...prev, [key]: value }));
   }
 
- async function handleImage(image){
-      await ImageToBase64(image[0], function(base){
+ async function handleImage(image, type="file"){
+      await ImageToBase64(image[0], type, function(base){
         setActor((prev) => ({ ...prev, image:base }))
       })
       
@@ -66,8 +72,8 @@ export default function ActorForm({ data }) {
 
   async function Submit() {
      makeQuery(() => MovieApi.actors.create(actor), () => {
-        setActor({})
-        success("Actor added successfully")
+        setActor(actor.id ? actor : {})
+        success(actor.id ? "Actor updated successfully" : "Actor added successfully")
      });
     
   }
@@ -77,6 +83,7 @@ export default function ActorForm({ data }) {
       <Grid container justify="center">
         <Grid item xs={12}>
           <ImageDropZone
+          preview={actor.id ? preview : null}
             OnChange={(image) => handleImage(image)}
           />
         </Grid>

@@ -56,7 +56,7 @@ export default function Previews(props) {
     }
   });
   
-  const thumbs = files.map(file => (
+  let thumbs = files.map(file => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
         <img
@@ -66,6 +66,19 @@ export default function Previews(props) {
       </div>
     </div>
   ));
+
+  if(files.length == 0 && props.preview){
+     thumbs =  (
+      <div style={thumb} >
+        <div style={thumbInner}>
+          <img
+            src={props.preview}
+            style={img}
+          />
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => () => {
     // Make sure to revoke the data uris to avoid memory leaks

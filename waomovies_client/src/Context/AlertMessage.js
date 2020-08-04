@@ -10,6 +10,7 @@ const AlertMessageProvider = (props) => {
 
 
     function reset(){
+        console.log('aa')
         setType("")
         setMessage("")
     }
