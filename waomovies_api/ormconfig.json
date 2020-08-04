@@ -1,6 +1,6 @@
 {
     "type": "postgres",
-    "host": "localhost",
+    "host": "database-1.clpufx6ndsak.us-east-2.rds.amazonaws.com",
     "port": 5432,
     "username": "postgres",
     "password" : "a253035253035",
